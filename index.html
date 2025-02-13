@@ -3,9 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Escape de el Star Runner</title>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    
+    <div class="game_container">
+        <div class="intro_screen">
+            <h1>Escapa del Star Runner</h1>
+            <p>En este juego del rol, deberás ir tomando decisiones para salir de la nave espacial.
+                Haz click en las diferentes opciones que irán apareciendo en pantalla para, explorar el Star Runner.
+                Ten cuidado, parece que va a ser un viaje movidito...
+            </p>
+        </div>
+
+        <div id="first_room" class="hidden">
+            <h2>Puente de mando</h2>
+            <p>Te has despertado de tu criosueño temprano debido a un error,no ves a ningún otro tripulante.
+                Aquí en el puente de mando no puedes hacer nada, parece que todos los mandos y pantallas está apagados y no hay forma de encenderlos.
+            </p>
+            <button class="first_room_button" data-room="explore">Sala del ordenador central.</button>
+            <button class="first_room_button" data-room="continue">Sala del comedor.</button>
+            <button class="first_room_button" data-room="reactor">Sala del reactor principal.</button>
+        </div>
+
+        <div id="result_screen_1" class="hidden">
+            <h2>Ordenador central.</h2>
+            <p id="result_message_1"></p>
+            <button class="go_back_1" data-restart="goback">Volver al puente de mando.</button>
+        </div>
+
+        <div id="end_game_screen" class="hidden">
+            <h1 id="end_game_message"></h1>
+            <button class="restart_game">Reiniciar.</button>
+        </div>
+
+    </div>
+    <script type="module" src="./main.js"></script>
 </body>
 </html>
