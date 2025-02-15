@@ -3,6 +3,7 @@
 }
 
 #intro_screen{
+    background-image: url(./imagenes/corbelan-4-og.jpg);
     width: 800px;
     height: 800px;
 }
@@ -25,6 +26,15 @@ body{
     align-items: center;
     height: 100vh;
     margin: 0;
+}
+
+#first_room{
+background-image: url(./imagenes/alien-romulus-set-designs-by-naaman-marshall-v0-bex0hxnpj3nd1.jpg);
+width: 800px;
+}
+
+#result_screen_1{
+    background-image: url(./imagenes/1414dad2-94e8-40ba-be7e-4da272831625_rw_1920.jpg);
 }
 
 #game_container{
