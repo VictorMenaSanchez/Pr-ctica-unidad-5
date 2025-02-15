@@ -1,0 +1,85 @@
+:root{
+    color: var();
+}
+
+#intro_screen{
+    width: 800px;
+    height: 800px;
+}
+
+.audiowide-regular {
+    font-family: "Audiowide", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+
+body{
+    background-color: #2B303A;
+    font-family: "Audiowide", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #97EAD2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#game_container{
+    text-align: center;
+    max-width: 600px;
+}
+/* 
+.hidden{
+    display: none;
+} */
+
+button{
+    font-family: "Audiowide", serif;
+    font-weight: 100;
+    font-style: normal;
+    background-color: #89fe3b;
+    color: #2B303A;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s;
+}
+
+button:hover{
+    background-color: #d6f8bf;
+    box-shadow: #1e1e2f;
+}
+
+#countdown{
+    font-size: 2em;
+    margin-top: 20px;
+}
+
+.activate_button{
+    background-color: red;
+}
+.activate_button:hover{
+    background-color: rgb(136, 14, 14);
+}
+
+#end_game_screen{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 250px;
+    background-color: #1e1e2f;
+    background: black;
+}
+
+.crono{
+    position: absolute;
+    top: 50px;
+    left: 50px;
+}
