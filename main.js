@@ -18,6 +18,8 @@ const endGameMessage = document.querySelector('#end_game_message')
 const crono = document.querySelector('.crono')
 const countdownElement = document.querySelector('.countdown')
 const cronoText = document.querySelector('.crono_text')
+const secondRoom = document.getElementById('second_room');
+
 
 
 // Pantalla de intro.
@@ -37,8 +39,11 @@ roomButtons.forEach(button => {
             showResult('Aquí se halla el ordanador central del Star Runner.');
         } else if (room === 'continue') {
             // Continuar a la siguiente zona (usando Promesas con async/await)
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            showResult('Avanzas por el camino y encuentras una salida. ¡Has ganado!');
+            //Este setTimeout no me convence, debo intentar implementarlo en otra sección del juego dado que de esta manera parece que se queda "pillado". 
+            // await new Promise(resolve => setTimeout(resolve, 1000));
+            // showResult('Avanzas por el camino y encuentras una salida. ¡Has ganado!');
+            firstRoom.classList.add('hidden');
+            secondRoom.classList.remove('hidden');
         } else if (room === 'reactor') {
             // Sala con Cuenta Atrás (usando setInterval)
             firstRoom.classList.add('hidden');
@@ -71,13 +76,15 @@ goBack1Buttons.forEach(button => {
             firstRoom.classList.remove('hidden');
             clearInterval(interval);
             countdownElement.remove();
-        }
-
-        
+        }else if (goBack === 'secondRoom') {
+        // Volver al puente de mando desde la sala principal (second_room)
+        secondRoom.classList.add('hidden');
+        firstRoom.classList.remove('hidden');
+    }
         
     });
 
-})
+});
 
 
 // Activar autodestrucción
@@ -96,6 +103,10 @@ const activateButton = () => {
                     cronoText.remove();
                     showEndGameScreen("La nave ha sido destrudida debido a la activación de colapso del reactor principal.")
                 }
+                /*
+                Debo cambiar el intervalo de tiempo por si un usuario activa la autodestrucción,
+                 que pueda tener la posibilidad de acabar el juego.
+                */
                 setTimeout(activateDestructionButton.remove(), 5000)
             }, 1000);
 
@@ -141,4 +152,5 @@ customElements.define('game-title', GameTitle);
 
 // Agregar componente al inicio
 introScreen.insertAdjacentHTML('afterbegin', '<game-title></game-title>');
+
 
