@@ -19,8 +19,14 @@ const crono = document.querySelector('.crono')
 const countdownElement = document.querySelector('.countdown')
 const cronoText = document.querySelector('.crono_text')
 const secondRoom = document.getElementById('second_room');
+const hibernationRoom = document.getElementById('hibernation_room');
+const goBackToSecondRoomButton = document.querySelectorAll('.go_back_to_second_room');
+const secondRoomButtons = document.querySelectorAll('.second_room_button');
+const deathRoom = document.getElementById('death_room');
 
-
+// const weaponsRoom = document.getElementById('weapons_room');
+const endGameScreen2 = document.getElementById('end_game_screen_2');
+// const endGameMessage2 = document.getElementById('end_game_message_2');
 
 // Pantalla de intro.
 startButton.addEventListener('click', () => {
@@ -154,3 +160,47 @@ customElements.define('game-title', GameTitle);
 introScreen.insertAdjacentHTML('afterbegin', '<game-title></game-title>');
 
 
+
+
+// Lógica para las segundas zonas
+secondRoomButtons.forEach(button => {
+    button.addEventListener('click', async (event) => {
+        const room2 = event.target.dataset.room2;
+
+        if (room2 === 'death') {
+            // Sala con texto
+            showEndGameScreen2()
+            showResult2('Aquí te mata el alien.');
+        } else if (room2 === 'continue') {
+            // Continuar a la siguiente zona (usando Promesas con async/await)
+            //Este setTimeout no me convence, debo intentar implementarlo en otra sección del juego dado que de esta manera parece que se queda "pillado". 
+            // await new Promise(resolve => setTimeout(resolve, 1000));
+            // showResult('Avanzas por el camino y encuentras una salida. ¡Has ganado!');
+            secondRoom.classList.add('hidden');
+            secondRoom.classList.remove('hidden');
+        } else if (room2 === 'reactor') {
+            
+            secondRoom.classList.add('hidden');
+            countdownScreen.classList.remove('hidden');
+            
+        }
+    });
+});
+
+
+const showEndGameScreen2 = (message)=> {
+    secondRoom.classList.add('hidden');
+    deathRoom.classList.add('hidden');
+    // countdownScreen.classList.add('hidden');
+    endGameScreen2.classList.remove('hidden');
+    endGameMessage2.innerHTML = message;
+    
+}
+
+// Mostrarque hay en las salas de la zona 2.
+const showResult2 = (message)=> {
+    secondRoom.classList.add('hidden');
+    deathRoom.classList.remove('hidden');
+    // deathRoom.textContent = message;
+    document.querySelector('#death_room p').textContent = message;
+}

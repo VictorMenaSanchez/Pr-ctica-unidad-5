@@ -64,20 +64,49 @@
                 Está todo lleno de sangre, la verdad que no invita a sentarse a tener una velada agradable...
             </p>
             <button class="go_back_1" data-go_back_1="secondRoom">Volver al puente de mando.</button>
-            <button class="second_room_button" data-room="explore_more">Sala de armas.</button>
-            <button class="second_room_button" data-room="win_game">Cápsulas de escape.</button>
-            <button class="second_room_button" data-room="death">Cápsulas de hibernación.</button>
+            <button class="second_room_button" data-room2="death">Sala de armas.</button>
+            <button class="second_room_button" data-room2="win_game">Cápsulas de escape.</button>
+            <button class="second_room_button" data-room2="explore_more">Cápsulas de hibernación.</button>
         </div>
 
-        <div id="death_by_alien" class="hidden">
-            <h1>Sala de armas.</h1>
-            <p>aqui te mata el bicho</p>
-            <button class="death_end">INICIAR AUTODESTRUCCIÓN</button>
-            
+
+        <div id="death_room" class="hidden">
+            <!-- <h2>Sala de armas</h2>
+            <p>En la sala de armas aparece un alien que salta sobre ti y acaba con tu vida, fin de la partida.</p> -->
+            <button class="go_back_to_second_room">Volver a la sala principal</button>
         </div>
 
-        <div id="end_game_screen_2" class="hidden">
-            <h1 id="end_game_message_2"></h1>
+        <!-- <div id="end_game_screen_2" class="hidden">
+            <h1 id="end_game_message_2">moriste</h1>
+            <button class="reiniciar_juego">Volver a jugar</button>
+        </div> -->
+
+        <div id="win_game_room" class="hidden">
+            <h2>Cápsulas de Escape</h2>
+            <p>Has encontrado las cápsulas de escape.
+                ¿Quieres abandonar el Star Runner y salvar tu vida?
+                ¿O prefieres jugarte el pellejo y seguir explorando?</p>
+            <button class="go_back_to_second_room">Volver a la sala principal</button>
+            <button class="win_game_button">ESCAPAR DEL STAR RUNNER</button>
+        </div>
+
+        <div id="end_game_screen_3" class="hidden">
+            <h1 id="end_game_message_3"></h1>
+            <button class="reiniciar_juego">Volver a jugar</button>
+        </div>
+
+        <div id="hibernation_room" class="hidden">
+            <h2>Cápsulas de Hibernación</h2>
+            <p>Has encontrado las cápsulas de hibernación, pero algo no está bien... El sistema parece haber sido saboteado.</p>
+            <button class="go_back_to_second_room">Volver a la sala principal</button>
+        </div>
+        
+
+
+
+
+        <div id="end_game_screen_2" class="end_game_screen_2 hidden">
+            <h1 id="end_game_message_2">Aparece una criatura alienigena y salta sobre ti, lo último que ves son sus garras clavandose en tu pecho.</h1>
             <button class="reiniciar_juego">Volver a jugar 2</button>
         </div>
 
