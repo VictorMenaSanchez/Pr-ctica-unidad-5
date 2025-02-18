@@ -12,8 +12,20 @@ const resultScreen1 = document.getElementById('result_screen_1')
 const roomButtons = document.querySelectorAll('.first_room_button');
 const resultMessage = document.getElementById('result_message_1');
 const goBack1Buttons = document.querySelectorAll('.go_back_1');
+
+
+
+/*
+Variables y constantes bomba
+*/
 const countdownScreen = document.getElementById('countdownScreen');
 const activateDestructionButton = document.querySelector('.activate_button');
+let timeoutCounter; 
+let intervalCounter; 
+let startTime;  
+const cancelButton = document.getElementById('cancel_button');
+let countdownActive = false;
+
 
 /*
 CONSTANTES GENERALES
@@ -65,6 +77,7 @@ roomButtons.forEach(button => {
             //Este setTimeout no me convence, debo intentar implementarlo en otra sección del juego dado que de esta manera parece que se queda "pillado". 
             alert("¿Quieres acceder a la siguiente zona? Pulsa aceptar y espera 2 segundos.")
             await new Promise(resolve => setTimeout(resolve, 2000));
+            
             // showResult('Avanzas por el camino y encuentras una salida. ¡Has ganado!');
             firstRoom.classList.add('hidden');
             secondRoom.classList.remove('hidden');
@@ -111,34 +124,90 @@ goBack1Buttons.forEach(button => {
 });
 
 
-// Activar autodestrucción
+// Función para reiniciar la cuenta atrás
+const restartCountdown = () => {
+    // Reiniciar el contador y las variables de la cuenta atrás
+    countdownActive = false;
+    clearInterval(intervalCounter);  
+    clearTimeout(timeoutCounter);    
+    countdownElement.textContent = ""; 
+    cronoText.textContent = ""; 
+    cancelButton.classList.add('hidden'); 
+    cancelButton.disabled = false; 
+    activateDestructionButton.classList.remove('hidden');  
+    activateDestructionButton.disabled = false;  
+};
+
+// Función para activar la cuenta atrás
 const activateButton = () => {
     activateDestructionButton.addEventListener('click', () => {
-            cronoText.textContent = "PARA LA AUTODESTRUCCIÓN"
-            let counter = 35;
+        // Si la cuenta atrás ya está activa, no hacemos nada
+        if (countdownActive) return;
+
+        // Desactivar el botón de autodestrucción para evitar clics múltiples
+        activateDestructionButton.disabled = true;
+        activateDestructionButton.classList.add('hidden'); // Ocultar el botón al iniciar la cuenta atrás
+
+        cronoText.textContent = "PARA LA AUTODESTRUCCIÓN";
+        let counter = 35;
+        countdownElement.textContent = counter;
+
+        // Iniciar cuenta atrás
+        countdownActive = true;
+        let startTime = Date.now();
+
+        // Intervalo para actualizar el contador cada segundo
+        intervalCounter = setInterval(() => {
+            counter--;
             countdownElement.textContent = counter;
-            const interval = setInterval(() => {
-                counter--;
-                countdownElement.textContent = counter;
 
-                if (counter <= 0) {
-                    clearInterval(interval);
-                    countdownElement.remove();
-                    cronoText.remove();
-                    showEndGameScreen("La nave ha sido destrudida debido a la activación de colapso del reactor principal.")
-                }
-                /*
-                Debo cambiar el intervalo de tiempo por si un usuario activa la autodestrucción,
-                 que pueda tener la posibilidad de acabar el juego.
-                */
-                setTimeout(activateDestructionButton.remove(), 35000)
-            }, 1000);
+            // Si la bomba llega a 0, termina el juego
+            if (counter <= 0) {
+                clearInterval(intervalCounter);
+                countdownElement.remove();
+                cronoText.remove();
+                showEndGameScreen("La nave ha sido destruida debido a la activación de colapso del reactor principal.");
+            }
 
-            
-    } )
-}
+            // Deshabilitar el botón de cancelación si quedan 10 segundos o menos, como en la peli.
+            if (counter <= 10) {
+                cancelButton.disabled = true;  // Deshabilitar el botón de cancelación
+            } else {
+                cancelButton.disabled = false; // Habilitar el botón de cancelación
+            }
+        }, 1000);
 
-activateButton()
+        // Timeout para eliminar el botón de autodestrucción después de 35 segundos
+        timeoutCounter = setTimeout(() => {
+            activateDestructionButton.remove(); // Eliminar el botón de autodestrucción después de 35 segundos
+        }, 35000);
+
+        // Función para cancelar la autodestrucción
+        const deactivateButton = () => {
+            const timeWasted = Date.now() - startTime;
+
+            // Si han pasado más de 25 segundos, no puedes cancelar
+            if (timeWasted <= 25000) {
+                clearTimeout(timeoutCounter);  // Cancela el timeout
+                clearInterval(intervalCounter); // Detiene el contador
+                countdownElement.remove();
+                cronoText.remove();
+                alert("AUTODESTRUCCIÓN CANCELADA CON ÉXITO.");
+
+                restartCountdown(); // Reiniciar todo
+            } else {
+                alert("¡No puedes cancelar la autodestrucción cuando quedan 10 segundos o menos!");
+            }
+        };
+
+        // Mostrar el botón de cancelación
+        cancelButton.classList.remove('hidden');
+        cancelButton.addEventListener('click', deactivateButton);
+    });
+};
+
+// Llamar a activateButton para que funcione al cargar la página
+activateButton();
 
 
 // Mostrar fin de partida
